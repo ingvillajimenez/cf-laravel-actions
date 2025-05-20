@@ -40,6 +40,8 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: Configuration file
-          path: composer.json
+          name: artifact for debugging
+          path: |
+            composer.json
