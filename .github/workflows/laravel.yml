@@ -28,7 +28,7 @@ jobs:
       - name: Install packages
         run: composer install --no-interaction
 
-      - name: Set up environment
+      - name: Set up environment variables
         run: cp .env.example .env
 
       - name: Generate application key
@@ -36,3 +36,6 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/phpunit
+
+      - name: deploy
+        run: ls
