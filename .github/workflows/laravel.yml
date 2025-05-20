@@ -39,7 +39,7 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Configuration file for PHP Project
+          name: Configuration file
           path: composer.json
