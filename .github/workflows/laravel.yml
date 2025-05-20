@@ -3,45 +3,9 @@ name: Laravel CI
 on: [push]
 
 jobs:
-  test-workflow-cicd:
+  workflow-runners:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: laravel
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          extensions: mbstring, bcmath, pdo, pdo_mysql
-
-      - name: Install packages
-        run: composer install --no-interaction
-
-      - name: Set up environment variables
-        run: cp .env.example .env
-
-      - name: Generate application key
-        run: php artisan key:generate
-
-      - name: Run tests
-        id: test
-        run: vendor/bin/phpunit
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: artifact for debugging
-          path: |
-            composer.json
+      - name: List files
+        run: ls -al
