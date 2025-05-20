@@ -3,7 +3,7 @@ name: Laravel CI
 on: [push]
 
 jobs:
-  test-laravel:
+  test-workflow-cicd:
     runs-on: ubuntu-latest
 
     services:
@@ -38,6 +38,8 @@ jobs:
         id: test
         run: vendor/bin/phpunit
 
-      - name: Check test result
-        if: steps.test.outcome == 'success'
-        run: ls
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Configuration file for PHP Project
+          path: composer.json
