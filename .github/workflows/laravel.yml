@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   workflow-runners:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
 
     steps:
       - name: List files
