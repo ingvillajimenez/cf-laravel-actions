@@ -4,8 +4,8 @@ on: [push]
 
 jobs:
   workflow-runners:
-    runs-on: windows-2019
+    runs-on: self-hosted
 
     steps:
       - name: List files
-        run: dir
+        run: ls -al
