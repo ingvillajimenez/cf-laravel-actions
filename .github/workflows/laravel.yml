@@ -3,29 +3,23 @@ name: Laravel CI/CD
 on: [push]
 
 jobs:
-  deploy:
+  matrix-example:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php-version: [7.4, 8.0, 8.1]
+
     steps:
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.CURSO_GITHUB_ACTIONS_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 13.220.135.100 >> ~/.ssh/known_hosts
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Check SSH authentication
-        run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@13.220.135.100 "ls -al"
-
-      - name: Executing remote ssh commands using key
-        uses: appleboy/ssh-action@v1.0.3
-        if: success()
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          host: 13.220.135.100
-          username: ubuntu
-          key: ${{ secrets.CURSO_GITHUB_ACTIONS_SSH_KEY }}
-          port: 22
-          script: |
-            cd /home/ubuntu/curso-github-actions
-            git pull origin master
+          php-version: ${{ matrix.php-version }}
+
+      - name: Run script
+        run: |
+          echo "PHP version: ${{ matrix.php-version }}"
+          php -v
