@@ -17,3 +17,12 @@ jobs:
       - name: Check SSH authentication
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@13.220.135.100 "ls -al"
+
+      - name: Executing remote ssh commands using key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 13.220.135.100
+          username: ubuntu
+          key: ${{ secrets.CURSO_GITHUB_ACTIONS_SSH_KEY }}
+          port: 22
+          script: whoami
