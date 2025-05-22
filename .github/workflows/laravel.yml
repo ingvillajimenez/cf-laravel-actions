@@ -3,15 +3,17 @@ name: Laravel CI/CD
 on: [push]
 
 jobs:
-  notification-example:
+  conditional-example:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
+        id: checkout
         uses: actions/checkout@v3
 
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2.1.1
+        if: steps.checkout.outcome == 'success'
         env:
           SLACK_WEBHOOK: ${{ secrets.WEBHOOK_URL }}
         with:
