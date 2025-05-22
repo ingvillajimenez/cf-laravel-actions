@@ -1,6 +1,12 @@
 name: Laravel CI/CD
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Test"
+        required: true
+        default: "test"
 
 jobs:
   workflow-dispatch-example:
