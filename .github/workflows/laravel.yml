@@ -1,11 +1,19 @@
-name: Laravel CI
+name: Laravel CI/CD
 
 on: [push]
 
 jobs:
-  workflow-runners:
-    runs-on: self-hosted
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: List files
-        run: ls -al
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.CURSO_GITHUB_ACTIONS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 13.220.135.100 >> ~/.ssh/known_hosts
+
+      - name: Check SSH authentication
+        run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@13.220.135.100 "ls -al"
